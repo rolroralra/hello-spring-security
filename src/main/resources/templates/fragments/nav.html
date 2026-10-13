@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav th:fragment="nav">
+    <a th:href="@{/}">홈</a>
+
+    <!-- 로그인하지 않은 사용자에게만 보인다 -->
+    <th:block sec:authorize="isAnonymous()">
+        <a th:href="@{/login}">로그인</a>
+        <a th:href="@{/signup}">회원가입</a>
+    </th:block>
+
+    <!-- 로그인한 사용자에게만 보인다 -->
+    <th:block sec:authorize="isAuthenticated()">
+        <a th:href="@{/me}">내 정보</a>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/members}">회원 관리</a>
+        <span><b sec:authentication="name">user</b> 님</span>
+        <!-- 로그아웃은 반드시 POST + CSRF 토큰. th:action 이 hidden _csrf 필드를 자동으로 넣어준다 -->
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">로그아웃</button>
+        </form>
+    </th:block>
+</nav>
+</body>
+</html>

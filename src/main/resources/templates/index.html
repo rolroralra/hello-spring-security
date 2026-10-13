@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Spring Security</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/nav :: nav}"></nav>
+
+<p class="message" th:if="${param.logout}">로그아웃 되었습니다.</p>
+
+<h1>Hello Spring Security</h1>
+<p>누구나 볼 수 있는 홈 화면입니다. (<code>permitAll()</code>)</p>
+
+<ul>
+    <li><a th:href="@{/me}">/me</a> — 로그인한 사용자만 (<code>authenticated()</code>)</li>
+    <li><a th:href="@{/admin/members}">/admin/members</a> — ADMIN 만 (<code>hasRole("ADMIN")</code>)</li>
+</ul>
+</body>
+</html>

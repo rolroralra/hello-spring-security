@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/nav :: nav}"></nav>
+
+<h1>로그인</h1>
+
+<p class="message" th:if="${param.signup}">회원가입이 완료되었습니다. 로그인해 주세요.</p>
+<p class="error" th:if="${param.error}">아이디 또는 비밀번호가 올바르지 않습니다.</p>
+
+<!--
+  POST /login 은 우리가 만든 컨트롤러가 아니라 UsernamePasswordAuthenticationFilter 가 처리한다.
+  파라미터 이름은 기본값 username / password 를 그대로 사용한다.
+-->
+<form th:action="@{/login}" method="post">
+    <label for="username">아이디</label>
+    <input id="username" name="username" type="text" autocomplete="username" required autofocus>
+
+    <label for="password">비밀번호</label>
+    <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+    <button type="submit">로그인</button>
+</form>
+</body>
+</html>

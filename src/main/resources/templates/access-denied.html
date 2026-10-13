@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>접근 거부</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/nav :: nav}"></nav>
+
+<h1>403 - 접근 권한이 없습니다</h1>
+<p>로그인은 되어 있지만(인증 O) 이 페이지에 필요한 권한이 없습니다(인가 X).</p>
+<a th:href="@{/}">홈으로</a>
+</body>
+</html>

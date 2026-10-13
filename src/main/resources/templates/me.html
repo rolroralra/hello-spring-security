@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>내 정보</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/nav :: nav}"></nav>
+
+<h1>내 정보</h1>
+
+<h3>1) 컨트롤러에서 @AuthenticationPrincipal 로 받은 값</h3>
+<table>
+    <tr><th>id</th><td th:text="${me.id}"></td></tr>
+    <tr><th>username</th><td th:text="${me.username}"></td></tr>
+    <tr><th>nickname</th><td th:text="${me.nickname}"></td></tr>
+    <tr><th>role</th><td th:text="${me.role}"></td></tr>
+</table>
+
+<h3>2) 템플릿에서 sec:authentication 으로 직접 꺼낸 값</h3>
+<table>
+    <tr><th>name</th><td sec:authentication="name"></td></tr>
+    <!-- principal(MemberPrincipal) 의 권한 vs Authentication 의 권한 - docs/06 의 FACTOR 권한 참고 -->
+    <tr><th>principal.authorities</th><td sec:authentication="principal.authorities"></td></tr>
+    <tr><th>authorities</th><td sec:authentication="authorities"></td></tr>
+</table>
+</body>
+</html>
