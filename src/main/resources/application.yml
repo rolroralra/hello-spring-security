@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: hello-spring-security
+
+  # bootRun 시 spring-boot-docker-compose 가 compose.yaml 을 읽어 컨테이너를 띄우고
+  # 아래 datasource 접속 정보를 자동으로 덮어쓴다(ServiceConnection).
+  # docker compose up -d 로 직접 띄운 뒤 jar 로 실행할 때를 위해 기본값도 적어 둔다.
+  datasource:
+    url: jdbc:postgresql://localhost:${POSTGRES_PORT:15432}/${POSTGRES_DB:hello_security}
+    username: ${POSTGRES_USER:hello}
+    password: ${POSTGRES_PASSWORD:hello1234}
+
+  docker:
+    compose:
+      # 애플리케이션 종료 시 컨테이너를 내리지 않는다 (재시작이 빨라짐)
+      lifecycle-management: start-only
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      # 학습용 설정. 운영에서는 validate + Flyway/Liquibase 를 사용한다.
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+app:
+  # 애플리케이션 기동 시 생성되는 관리자 계정 (환경 변수로 덮어쓸 것)
+  admin:
+    username: ${APP_ADMIN_USERNAME:admin}
+    password: ${APP_ADMIN_PASSWORD:admin1234}
+    nickname: 관리자
+  jwt:
+    issuer: hello-spring-security
+    expiry: 30m
+
+logging:
+  level:
+    # 필터 체인 동작을 눈으로 보고 싶다면 TRACE 로 바꿔 보자 (docs/03 참고)
+    org.springframework.security: INFO
